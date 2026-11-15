@@ -1,0 +1,30 @@
+[
+  {
+    "title": "First Responder",
+    "org": "Creator",
+    "period": null,
+    "description": "An agentic AI tool for root cause analysis. Autonomously investigates production incidents by reasoning across logs, metrics, and traces to surface the most likely cause — without waiting for an engineer to start digging.",
+    "tags": ["Patent filed", "Agentic AI"]
+  },
+  {
+    "title": "Platform engineering for government cybersecurity",
+    "org": "Thoughtworks",
+    "period": "2026–",
+    "description": null,
+    "tags": ["Platform engineering", "Public sector"]
+  },
+  {
+    "title": "National digital identity platform",
+    "org": "Singapore government",
+    "period": null,
+    "description": null,
+    "tags": ["Identity", "Public sector", "Singapore"]
+  },
+  {
+    "title": "Casino management modernisation",
+    "org": "Integrated resort",
+    "period": null,
+    "description": "I helped a major resort move from one or two releases a quarter to two or three a month.",
+    "tags": ["Modernisation", "Delivery"]
+  }
+]

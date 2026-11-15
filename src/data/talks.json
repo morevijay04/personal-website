@@ -1,0 +1,20 @@
+[
+  {
+    "year": "2026",
+    "event": "XConf APAC",
+    "location": "Singapore",
+    "title": "Agentic root cause analysis, with a live demo of First Responder",
+    "description": "A live demonstration of how agentic loops can autonomously diagnose production incidents, featuring First Responder — an AI tool for root cause analysis.",
+    "recordingUrl": null,
+    "slidesUrl": null
+  },
+  {
+    "year": null,
+    "event": "XConf APAC",
+    "location": "Vietnam",
+    "title": "Agentic root cause analysis",
+    "description": "An exploration of how agentic AI approaches change the way engineers investigate why systems fail.",
+    "recordingUrl": null,
+    "slidesUrl": null
+  }
+]
