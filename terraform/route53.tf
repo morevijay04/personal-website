@@ -1,12 +1,3 @@
-# ── Hosted zone lookup ────────────────────────────────────────────────────────
-# We expect the hosted zone for var.domain_name to already exist in Route 53
-# (created when the domain was registered or transferred).
-data "aws_route53_zone" "website" {
-  count        = var.domain_name != null ? 1 : 0
-  name         = var.domain_name
-  private_zone = false
-}
-
 # ── ACM DNS validation records ────────────────────────────────────────────────
 # ACM asks us to prove domain ownership by publishing CNAME records. We iterate
 # over the domain_validation_options emitted by the certificate resource.
@@ -20,7 +11,7 @@ resource "aws_route53_record" "cert_validation" {
     }
   } : {}
 
-  zone_id = data.aws_route53_zone.website[0].zone_id
+  zone_id = aws_route53_zone.website[0].zone_id
   name    = each.value.name
   type    = each.value.type
   records = [each.value.record]
@@ -32,7 +23,7 @@ resource "aws_route53_record" "cert_validation" {
 # ── A record (IPv4) ───────────────────────────────────────────────────────────
 resource "aws_route53_record" "website_a" {
   count   = var.domain_name != null ? 1 : 0
-  zone_id = data.aws_route53_zone.website[0].zone_id
+  zone_id = aws_route53_zone.website[0].zone_id
   name    = var.domain_name
   type    = "A"
 
@@ -46,7 +37,7 @@ resource "aws_route53_record" "website_a" {
 # ── www A record (IPv4) ───────────────────────────────────────────────────────
 resource "aws_route53_record" "website_www_a" {
   count   = var.domain_name != null ? 1 : 0
-  zone_id = data.aws_route53_zone.website[0].zone_id
+  zone_id = aws_route53_zone.website[0].zone_id
   name    = "www.${var.domain_name}"
   type    = "A"
 
@@ -60,7 +51,7 @@ resource "aws_route53_record" "website_www_a" {
 # ── AAAA record (IPv6) ────────────────────────────────────────────────────────
 resource "aws_route53_record" "website_aaaa" {
   count   = var.domain_name != null ? 1 : 0
-  zone_id = data.aws_route53_zone.website[0].zone_id
+  zone_id = aws_route53_zone.website[0].zone_id
   name    = var.domain_name
   type    = "AAAA"
 
@@ -74,7 +65,7 @@ resource "aws_route53_record" "website_aaaa" {
 # ── www AAAA record (IPv6) ────────────────────────────────────────────────────
 resource "aws_route53_record" "website_www_aaaa" {
   count   = var.domain_name != null ? 1 : 0
-  zone_id = data.aws_route53_zone.website[0].zone_id
+  zone_id = aws_route53_zone.website[0].zone_id
   name    = "www.${var.domain_name}"
   type    = "AAAA"
 

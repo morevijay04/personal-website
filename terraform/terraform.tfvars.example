@@ -1,0 +1,6 @@
+# Copy this file to terraform.tfvars and fill in your details.
+# terraform.tfvars is gitignored — never commit it.
+
+contact_phone   = "+65.91234567"   # E.164 format: +CountryCode.Number
+contact_address = "1 Example Street"
+contact_zip_code = "123456"
