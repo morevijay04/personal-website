@@ -11,12 +11,11 @@ resource "aws_route53_zone" "website" {
 }
 
 # ── Domain registration ────────────────────────────────────────────────────────
-# Registers the domain and updates its nameservers to the hosted zone above.
-# Route 53 Domains API is only available in us-east-1.
+# Manages the already-registered domain (nameservers, contacts, auto-renew).
+# The initial registration must be done via CLI or the AWS console and then
+# imported: terraform import 'aws_route53domains_registered_domain.website[0]' vijaymore.com
 #
-# WARNING: Running `terraform apply` will charge ~$12/year to your AWS account
-# immediately. This resource uses prevent_destroy so `terraform destroy` will
-# error rather than silently unregister the domain.
+# Route 53 Domains API is only available in us-east-1.
 resource "aws_route53domains_registered_domain" "website" {
   count    = var.domain_name != null ? 1 : 0
   provider = aws.us_east_1
