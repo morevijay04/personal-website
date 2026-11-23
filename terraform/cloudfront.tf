@@ -33,8 +33,15 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   # ── SPA / single-page routing ────────────────────────────────────
-  # Map 404s back to index.html so deep-linked URLs work. The 200 response
-  # code tells browsers (and SEO crawlers) the page exists.
+  # Private S3 buckets with OAC return 403 (not 404) for missing objects,
+  # so we must handle both. Map both back to index.html.
+  custom_error_response {
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/index.html"
+    error_caching_min_ttl = 10
+  }
+
   custom_error_response {
     error_code            = 404
     response_code         = 200
