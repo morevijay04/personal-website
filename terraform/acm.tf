@@ -25,11 +25,21 @@ resource "aws_acm_certificate" "website" {
 
 # ── DNS validation waiter ─────────────────────────────────────────────────────
 # This resource blocks until ACM confirms that all DNS validation records have
-# been verified. It depends on the Route 53 records created in route53.tf.
+# been verified. It must wait for the domain registration to complete so that
+# the domain's nameservers are pointing at the Route 53 zone before ACM tries
+# to look up the validation CNAME records.
 resource "aws_acm_certificate_validation" "website" {
   count    = var.domain_name != null ? 1 : 0
   provider = aws.us_east_1
 
   certificate_arn         = aws_acm_certificate.website[0].arn
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
+
+  # Wait for domain registration (and nameserver update) to finish before
+  # polling for DNS validation — otherwise ACM starts before the zone is live.
+  depends_on = [aws_route53domains_registered_domain.website]
+
+  timeouts {
+    create = "2h"
+  }
 }
